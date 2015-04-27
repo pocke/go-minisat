@@ -4,3 +4,4 @@ build:
 	cp -r niklasso-minisat-*/* minisat/
 	rm -rf niklasso-minisat-*/
 	rm minisat.tar.gz
+	cd minisat/ && make
