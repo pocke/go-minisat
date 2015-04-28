@@ -5,9 +5,11 @@ extern "C" {
   typedef int WrapVar;
   typedef void* WrapSolver;
 
-  WrapVar WrapSolverNewVar(WrapSolver slv);
 
   WrapSolver NewSolver();
+
+  WrapVar WrapSolverNewVar(WrapSolver slv);
+  int WrapSolverSolve(WrapSolver slv);
 
 #ifdef __cplusplus
 }

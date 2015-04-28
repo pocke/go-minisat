@@ -24,6 +24,11 @@ func NewSolver() *Solver {
 func (s *Solver) NewVar() *Var {
 	v := C.WrapSolverNewVar(*s.CSolver)
 	return &Var{
-		CVar: v,
+		CVar: &v,
 	}
+}
+
+func (s *Solver) Solve() bool {
+	res := C.WrapSolverSolve(*s.CSolver)
+	return res == 1
 }
