@@ -2,9 +2,12 @@
 extern "C" {
 #endif
 
+  typedef int WrapVar;
   typedef void* WrapSolver;
-  WrapSolver NewSolver();
 
+  WrapVar WrapSolverNewVar(WrapSolver slv);
+
+  WrapSolver NewSolver();
 
 #ifdef __cplusplus
 }

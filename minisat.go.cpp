@@ -3,9 +3,10 @@
 
 using namespace Minisat;
 
-// variable
+extern "C" WrapVar WrapSolverNewVar(WrapSolver slv) {
+    return ((Solver*) slv)->newVar();
+}
 
-// solver
-WrapSolver NewSolver() {
+extern "C" WrapSolver NewSolver() {
   return (WrapSolver) new Solver();
 }
