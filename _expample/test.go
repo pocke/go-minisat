@@ -10,4 +10,5 @@ func main() {
 	s := minisat.NewSolver()
 	fmt.Println(s)
 	s.NewVar()
+	fmt.Println(s.Solve())
 }
