@@ -4,12 +4,15 @@ extern "C" {
 
   typedef int WrapVar;
   typedef void* WrapSolver;
+  typedef int WrapLit;
 
 
   WrapSolver NewSolver();
 
   WrapVar WrapSolverNewVar(WrapSolver slv);
   int WrapSolverSolve(WrapSolver slv);
+  void WrapSolverAddClause();
+  WrapLit WrapMkLit(WrapVar v, int sign);
 
 #ifdef __cplusplus
 }

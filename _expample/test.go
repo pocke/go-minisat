@@ -9,6 +9,8 @@ import (
 func main() {
 	s := minisat.NewSolver()
 	fmt.Println(s)
-	s.NewVar()
+	v := s.NewVar()
+	fmt.Println(v)
+	fmt.Println(v.Not())
 	fmt.Println(s.Solve())
 }
