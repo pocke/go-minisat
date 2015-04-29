@@ -5,12 +5,12 @@ import (
 
 	"github.com/pocke/go-minisat"
 )
+import "C"
 
 func main() {
 	s := minisat.NewSolver()
-	fmt.Println(s)
 	v := s.NewVar()
-	fmt.Println(v)
-	fmt.Println(v.Not())
-	fmt.Println(s.Solve())
+	fmt.Println((C.int)(*v.CVar))
+	v2 := s.NewVar()
+	fmt.Println((C.int)(*v2.CVar))
 }

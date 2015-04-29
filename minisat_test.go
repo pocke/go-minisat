@@ -29,8 +29,33 @@ func TestSolveSat(t *testing.T) {
 func TestSolveUnsat(t *testing.T) {
 	s := minisat.NewSolver()
 	v := s.NewVar()
-	s.AddClause(v, v.Not())
+	s.AddClause(v)
+	s.AddClause(v.Not())
 	if s.Solve() {
 		t.Error("Expected: false, but got true")
+	}
+}
+
+func TestNewVar(t *testing.T) {
+	s := minisat.NewSolver()
+	for i := 0; i < 3; i++ {
+		v := s.NewVar()
+		cvar := (int)(*v.CVar)
+		clit := (int)(*v.CLit)
+		if cvar*2 != clit {
+			t.Errorf("clit expected: %d, but got %d", cvar*2, clit)
+		}
+	}
+}
+
+func TestVarNot(t *testing.T) {
+	s := minisat.NewSolver()
+	for i := 0; i < 3; i++ {
+		v := s.NewVar().Not()
+		cvar := (int)(*v.CVar)
+		clit := (int)(*v.CLit)
+		if cvar*2+1 != clit {
+			t.Errorf("clit expected: %d, but got %d", cvar*2+1, clit)
+		}
 	}
 }
