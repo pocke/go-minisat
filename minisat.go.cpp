@@ -20,3 +20,14 @@ extern "C" int WrapSolverSolve(WrapSolver slv) {
 extern "C" WrapLit WrapMkLit(WrapVar v, int sign) {
   return mkLit(v, bool(sign)).x;
 }
+
+extern "C" int WrapSolverAddClause(WrapSolver slv, WrapLit* lits, int len) {
+ vec<Lit> vec_lits;
+ 
+  for (int i = 0; i < len; i++) {
+    Lit l;
+    l.x = lits[i];
+    vec_lits.push(l);
+  }
+  return ((Solver*) slv)->addClause_(vec_lits) ? 1 : 0;
+}

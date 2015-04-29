@@ -24,8 +24,10 @@ func NewSolver() *Solver {
 
 func (s *Solver) NewVar() *Var {
 	v := C.WrapSolverNewVar(*s.CSolver)
+	l := C.WrapMkLit(v, 0)
 	return &Var{
 		CVar: &v,
+		CLit: &l,
 	}
 }
 
@@ -34,8 +36,12 @@ func (s *Solver) Solve() bool {
 	return res != 0
 }
 
-func (s *Solver) AddClause(lits ...Var) {
-
+func (s *Solver) AddClause(vars ...*Var) bool {
+	lits := make([]C.WrapLit, 0, len(vars))
+	for _, v := range vars {
+		lits = append(lits, *v.CLit)
+	}
+	return C.WrapSolverAddClause(*s.CSolver, (*C.WrapLit)(&lits[0]), (C.int)(len(lits))) != 0
 }
 
 func (v *Var) Not() *Var {
@@ -43,12 +49,9 @@ func (v *Var) Not() *Var {
 		CVar: v.CVar,
 		CLit: v.CLit,
 	}
-	if res.CLit == nil {
-		lit := C.WrapMkLit(*v.CVar, 1)
-		res.CLit = &lit
-	} else {
 
-	}
+	lit := C.WrapMkLit(*v.CVar, 1)
+	res.CLit = &lit
 
 	return res
 }

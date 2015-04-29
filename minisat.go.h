@@ -11,7 +11,7 @@ extern "C" {
 
   WrapVar WrapSolverNewVar(WrapSolver slv);
   int WrapSolverSolve(WrapSolver slv);
-  void WrapSolverAddClause();
+  int WrapSolverAddClause(WrapSolver slv, WrapLit* lits, int len);
   WrapLit WrapMkLit(WrapVar v, int sign);
 
 #ifdef __cplusplus
