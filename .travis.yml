@@ -11,6 +11,7 @@ before_install:
   - go get github.com/axw/gocov/gocov
   - go get github.com/mattn/goveralls
   - go get golang.org/x/tools/cmd/cover
+  - make build
 
 script:
   - "if   go version | grep '1.3' > /dev/null; then go test -v --race; fi"
