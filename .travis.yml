@@ -1,0 +1,17 @@
+language: go
+
+sudo: false
+
+go:
+  - 1.3
+  - 1.4
+  - tip
+
+before_install:
+  - go get github.com/axw/gocov/gocov
+  - go get github.com/mattn/goveralls
+  - go get golang.org/x/tools/cmd/cover
+
+script:
+  - "if   go version | grep '1.3' > /dev/null; then go test -v --race; fi"
+  - "if ! go version | grep '1.3' > /dev/null; then $HOME/gopath/bin/goveralls -repotoken $COVERALLS_TOKEN -v --race; fi"
