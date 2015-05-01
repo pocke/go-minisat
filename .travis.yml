@@ -12,6 +12,5 @@ before_install:
   - go get golang.org/x/tools/cmd/cover
 
 script:
-  - make build
   - "if   go version | grep '1.3' > /dev/null; then go test -v --race; fi"
   - "if ! go version | grep '1.3' > /dev/null; then $HOME/gopath/bin/goveralls -repotoken $COVERALLS_TOKEN -v --race; fi"
