@@ -11,8 +11,7 @@ env:
 
 before_install:
   - git clone --depth 1 https://github.com/niklasso/minisat $MINISAT_DIR
-  - pushd
-  - cd $MINISAT_DIR
+  - pushd $MINISAT_DIR
   - make config prefix="/usr"
   - make
   - sudo make install
