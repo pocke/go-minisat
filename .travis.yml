@@ -5,8 +5,18 @@ go:
   - 1.4
   - tip
 
+env:
+  global:
+    MINISAT_DIR: '/tmp/minisat'
+
 before_install:
-  - git clone --depth 1 https://github.com/niklasso/minisat && cd minisat && make config prefix="/usr" && make && sudo make install
+  - git clone --depth 1 https://github.com/niklasso/minisat $MINISAT_DIR
+  - pushd
+  - cd $MINISAT_DIR
+  - make config prefix="/usr"
+  - make
+  - sudo make install
+  - popd
   - go get github.com/axw/gocov/gocov
   - go get github.com/mattn/goveralls
   - go get golang.org/x/tools/cmd/cover
