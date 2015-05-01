@@ -1,5 +1,5 @@
-#include "minisat/minisat/core/Solver.h"
-#include "minisat/minisat/core/SolverTypes.h"
+#include <minisat/core/Solver.h>
+#include <minisat/core/SolverTypes.h>
 #include "minisat.go.h"
 
 using namespace Minisat;
