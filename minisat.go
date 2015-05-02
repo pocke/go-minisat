@@ -1,7 +1,7 @@
 package minisat
 
 /*
-#cgo CFLAGS: -D __STDC_LIMIT_MACROS -D __STDC_FORMAT_MACROS -D __STDC_CONSTANT_MACROS
+#cgo CFLAGS: -D __STDC_LIMIT_MACROS -D __STDC_FORMAT_MACROS -D __STDC_CONSTANT_MACROS -U STDINT_H
 #cgo LDFLAGS: -lminisat
 #include "minisat.go.h"
 */
