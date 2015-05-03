@@ -29,3 +29,8 @@ extern "C" int WrapSolverAddClause(WrapSolver slv, WrapLit* lits, int len) {
   }
   return ((Minisat::Solver*) slv)->addClause_(vec_lits) ? 1 : 0;
 }
+
+extern "C" int WrapSolverModelValue(WrapSolver slv, WrapVar v) {
+  Minisat::lbool b = ((Minisat::Solver*) slv)->model[v];
+  return toInt(b);
+}

@@ -59,3 +59,50 @@ func TestVarNot(t *testing.T) {
 		}
 	}
 }
+
+func TestSolverModelValueWhenNotSolvedYet(t *testing.T) {
+	s := minisat.NewSolver()
+	v := s.NewVar()
+	s.AddClause(v)
+	s.AddClause(v.Not())
+	_, err := s.ModelValue(v)
+	if err == nil {
+		t.Error("Expected: error, but got nil")
+	}
+}
+
+func TestSolverModelValueWhenUnsat(t *testing.T) {
+	s := minisat.NewSolver()
+	v := s.NewVar()
+	s.AddClause(v)
+	s.AddClause(v.Not())
+	s.Solve()
+	_, err := s.ModelValue(v)
+	if err == nil {
+		t.Error("Expected: error, but got nil")
+	}
+}
+
+func TestSolverModelValueWhenSat(t *testing.T) {
+	s := minisat.NewSolver()
+	v1 := s.NewVar()
+	v2 := s.NewVar()
+
+	s.AddClause(v1, v2)
+	s.AddClause(v1, v2.Not())
+	s.AddClause(v1.Not(), v2.Not())
+	s.Solve()
+
+	a1, err := s.ModelValue(v1)
+	if err != nil {
+		t.Errorf("Expected: nil, but got %s", err)
+	}
+	a2, err := s.ModelValue(v2)
+	if err != nil {
+		t.Errorf("Expected: nil, but got %s", err)
+	}
+
+	if !(a1 && !a2) {
+		t.Errorf("Expected: a1 == true and a2 == false, but got a1 == %v, a2 == %v", a1, a2)
+	}
+}
