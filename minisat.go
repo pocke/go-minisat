@@ -26,16 +26,19 @@ const (
 	notSolved
 )
 
+// Solver is Minisat solver written by C++ wrapper.
 type Solver struct {
 	CSolver *C.WrapSolver
 	state   solverState
 }
 
+// Var is variable and literal.
 type Var struct {
 	CVar *C.WrapVar
 	CLit *C.WrapLit
 }
 
+// NewSolver create a new solver. And set finalizer.
 func NewSolver() *Solver {
 	s := C.NewSolver()
 	slv := &Solver{
@@ -48,6 +51,7 @@ func NewSolver() *Solver {
 	return slv
 }
 
+// NewVar create new a variable and literal.
 func (s *Solver) NewVar() *Var {
 	v := C.WrapSolverNewVar(*s.CSolver)
 	l := C.WrapMkLit(v, 0)
@@ -57,6 +61,7 @@ func (s *Solver) NewVar() *Var {
 	}
 }
 
+// Solve satisfactory problem.
 func (s *Solver) Solve() bool {
 	res := C.WrapSolverSolve(*s.CSolver)
 	switch res {
