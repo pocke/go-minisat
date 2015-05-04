@@ -95,3 +95,7 @@ func (v *Var) Not() *Var {
 
 	return res
 }
+
+func (s *Solver) Free() {
+	C.WrapSolverFree(*s.CSolver)
+}

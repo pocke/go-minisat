@@ -34,3 +34,7 @@ extern "C" int WrapSolverModelValue(WrapSolver slv, WrapVar v) {
   Minisat::lbool b = ((Minisat::Solver*) slv)->model[v];
   return toInt(b);
 }
+
+extern "C" void WrapSolverFree(WrapSolver slv) {
+    delete (Minisat::Solver*) slv;
+}
