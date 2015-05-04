@@ -5,7 +5,10 @@ package minisat
 #include "minisat.go.h"
 */
 import "C"
-import "fmt"
+import (
+	"fmt"
+	"runtime"
+)
 
 type lBool int
 
@@ -35,10 +38,14 @@ type Var struct {
 
 func NewSolver() *Solver {
 	s := C.NewSolver()
-	return &Solver{
+	slv := &Solver{
 		CSolver: &s,
 		state:   notSolved,
 	}
+	runtime.SetFinalizer(slv, func(so *Solver) {
+		C.WrapSolverFree(*so.CSolver)
+	})
+	return slv
 }
 
 func (s *Solver) NewVar() *Var {
@@ -94,8 +101,4 @@ func (v *Var) Not() *Var {
 	res.CLit = &lit
 
 	return res
-}
-
-func (s *Solver) Free() {
-	C.WrapSolverFree(*s.CSolver)
 }
