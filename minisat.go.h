@@ -7,7 +7,7 @@ extern "C" {
   typedef int WrapLit;
 
 
-  WrapSolver NewSolver();
+  WrapSolver NewSolver(double seed);
 
   WrapVar WrapSolverNewVar(WrapSolver slv);
   int WrapSolverSolve(WrapSolver slv);

@@ -39,8 +39,8 @@ type Var struct {
 }
 
 // NewSolver create a new solver. And set finalizer.
-func NewSolver() *Solver {
-	s := C.NewSolver()
+func NewSolver(seed float64) *Solver {
+	s := C.NewSolver((C.double)(seed))
 	slv := &Solver{
 		CSolver: &s,
 		state:   notSolved,

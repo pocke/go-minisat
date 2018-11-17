@@ -3,8 +3,11 @@
 #include "minisat.go.h"
 
 
-extern "C" WrapSolver NewSolver() {
-  return (WrapSolver) new Minisat::Solver();
+extern "C" WrapSolver NewSolver(double seed) {
+  auto s = new Minisat::Solver();
+  s->random_seed = seed;
+  s->rnd_init_act = true;
+  return (WrapSolver) s;
 }
 
 extern "C" WrapVar WrapSolverNewVar(WrapSolver slv) {
